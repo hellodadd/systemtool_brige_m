@@ -177,21 +177,21 @@ public final class SysOperationHelpers {
 	 * Look up a method and hook it. See {@link #findAndHookMethod(String, ClassLoader, String, Object...)}
 	 * for details.
 	 */
-	public static STool_MethodHk.Unhk findAndHkMethod(Class<?> clazz, String methodName, Object... parameterTypesAndCallback) {
+	public static STool_MethodHk.Unhook getMethod(Class<?> clazz, String methodName, Object... parameterTypesAndCallback) {
 		if (parameterTypesAndCallback.length == 0 || !(parameterTypesAndCallback[parameterTypesAndCallback.length-1] instanceof STool_MethodHk))
 			throw new IllegalArgumentException("no callback defined");
 
 		STool_MethodHk callback = (STool_MethodHk) parameterTypesAndCallback[parameterTypesAndCallback.length-1];
 		Method m = findMethodExact(clazz, methodName, getParameterClasses(clazz.getClassLoader(), parameterTypesAndCallback));
 
-		return SysOperationBridge.hkMethod(m, callback);
+		return SysOperationBridge.hookMethod(m, callback);
 	}
 
 	/**
 	 * Look up a method and hook it. The last argument must be the callback for the hook.
 	 *
 	 * <p>This combines calls to {@link #findMethodExact(Class, String, Object...)} and
-	 * {@link SysOperationBridge#hkMethod}.
+	 * {@link SysOperationBridge#hookMethod}.
 	 *
 	 * <p class="warning">The method must be declared or overridden in the given class, inherited
 	 * methods are not considered! That's because each method implementation exists only once in
@@ -218,7 +218,7 @@ public final class SysOperationHelpers {
 	 *
 	 * <p>As last argument to this method (after the list of target method parameters), you need
 	 * to specify the callback that should be executed when the method is invoked. It's usually
-	 * an anonymous subclass of {@link STool_MethodHk} or {@link STool_MethodRplmt}.
+	 * an anonymous subclass of {@link STool_MethodHk} or {@link XC_MethodReplacement}.
 	 *
 	 * <p><b>Example</b>
 	 * <pre class="prettyprint">
@@ -231,7 +231,7 @@ public final class SysOperationHelpers {
 	 * }
 	 *
 	 * // ... you can use this call:
-	 * findAndHookMethod("com.example.SomeClass", lpparam.classLoader, String.class, int.class, "com.example.MyClass", new STool_MethodHk() {
+	 * findAndHookMethod("com.example.SomeClass", lpparam.classLoader, String.class, int.class, "com.example.MyClass", new XC_MethodHook() {
 	 *   &#64;Override
 	 *   protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	 *     String oldText = (String) param.args[0];
@@ -256,8 +256,8 @@ public final class SysOperationHelpers {
 	 * @throws ClassNotFoundError In case the target class or one of the parameter types couldn't be resolved.
 	 * @return An object which can be used to remove the callback again.
 	 */
-	public static STool_MethodHk.Unhk findAndHkMethod(String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback) {
-		return findAndHkMethod(findClass(className, classLoader), methodName, parameterTypesAndCallback);
+	public static STool_MethodHk.Unhook getMethod(String className, ClassLoader classLoader, String methodName, Object... parameterTypesAndCallback) {
+		return getMethod(findClass(className, classLoader), methodName, parameterTypesAndCallback);
 	}
 
 	/**
@@ -284,7 +284,7 @@ public final class SysOperationHelpers {
 	 * Look up a method in a class and set it to accessible.
 	 * The method must be declared or overridden in the given class.
 	 *
-	 * <p>See {@link #findAndHkMethod(String, ClassLoader, String, Object...)} for details about
+	 * <p>See {@link #findAndHookMethod(String, ClassLoader, String, Object...)} for details about
 	 * the method and parameter type resolution.
 	 *
 	 * @param className The name of the class which implements the method.
@@ -613,22 +613,22 @@ public final class SysOperationHelpers {
 	 * Look up a constructor and hook it. See {@link #findAndHookMethod(String, ClassLoader, String, Object...)}
 	 * for details.
 	 */
-	public static STool_MethodHk.Unhk findAndHkConstructor(Class<?> clazz, Object... parameterTypesAndCallback) {
+	public static STool_MethodHk.Unhook findAndHookConstructor(Class<?> clazz, Object... parameterTypesAndCallback) {
 		if (parameterTypesAndCallback.length == 0 || !(parameterTypesAndCallback[parameterTypesAndCallback.length-1] instanceof STool_MethodHk))
 			throw new IllegalArgumentException("no callback defined");
 
 		STool_MethodHk callback = (STool_MethodHk) parameterTypesAndCallback[parameterTypesAndCallback.length-1];
 		Constructor<?> m = findConstructorExact(clazz, getParameterClasses(clazz.getClassLoader(), parameterTypesAndCallback));
 
-		return SysOperationBridge.hkMethod(m, callback);
+		return SysOperationBridge.hookMethod(m, callback);
 	}
 
 	/**
-	 * Look up a constructor and hook it. See {@link #findAndHkMethod(String, ClassLoader, String, Object...)}
+	 * Look up a constructor and hook it. See {@link #findAndHookMethod(String, ClassLoader, String, Object...)}
 	 * for details.
 	 */
-	public static STool_MethodHk.Unhk findAndHkConstructor(String className, ClassLoader classLoader, Object... parameterTypesAndCallback) {
-		return findAndHkConstructor(findClass(className, classLoader), parameterTypesAndCallback);
+	public static STool_MethodHk.Unhook findAndHookConstructor(String className, ClassLoader classLoader, Object... parameterTypesAndCallback) {
+		return findAndHookConstructor(findClass(className, classLoader), parameterTypesAndCallback);
 	}
 
 	/**

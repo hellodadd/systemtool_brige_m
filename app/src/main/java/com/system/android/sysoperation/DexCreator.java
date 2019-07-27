@@ -37,7 +37,7 @@ import static com.system.android.sysoperation.SysOperationHelpers.inputStreamToB
 		}
 
 		try {
-			return ensure("sysoperation.res." + clz + "SuperClass", realSuperClz);
+			return ensure("sysoperation.dummy." + clz + "SuperClass", realSuperClz);
 		} catch (IOException e) {
 			throw new IOException("Failed to create a superclass for " + clz, e);
 		}

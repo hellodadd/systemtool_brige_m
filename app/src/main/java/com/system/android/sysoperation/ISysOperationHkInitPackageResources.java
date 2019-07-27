@@ -2,8 +2,8 @@ package com.system.android.sysoperation;
 
 import android.content.res.SToolResources;
 
-import com.system.android.sysoperation.callbacks.STool_InitPackageRes;
-import com.system.android.sysoperation.callbacks.STool_InitPackageRes.InitPackageResourcesParam;
+import com.system.android.sysoperation.callbacks.STool_InitPackageResources;
+import com.system.android.sysoperation.callbacks.STool_InitPackageResources.InitPackageResourcesParam;
 
 /**
  * Get notified when the resources for an app are initialized.
@@ -23,7 +23,7 @@ public interface ISysOperationHkInitPackageResources extends ISysOperationMod {
 	void handleInitPackageResources(InitPackageResourcesParam resparam) throws Throwable;
 
 	/** @hide */
-	final class Wrapper extends STool_InitPackageRes {
+	final class Wrapper extends STool_InitPackageResources {
 		private final ISysOperationHkInitPackageResources instance;
 		public Wrapper(ISysOperationHkInitPackageResources instance) {
 			this.instance = instance;

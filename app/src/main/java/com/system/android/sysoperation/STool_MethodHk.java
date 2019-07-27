@@ -3,7 +3,7 @@ package com.system.android.sysoperation;
 import java.lang.reflect.Member;
 
 import com.system.android.sysoperation.callbacks.ISToolUnhk;
-import com.system.android.sysoperation.callbacks.SToolCallbk;
+import com.system.android.sysoperation.callbacks.SToolCallback;
 
 /**
  * Callback class for method hooks.
@@ -11,7 +11,7 @@ import com.system.android.sysoperation.callbacks.SToolCallbk;
  * <p>Usually, anonymous subclasses of this class are created which override
  * {@link #beforeHookedMethod} and/or {@link #afterHookedMethod}.
  */
-public abstract class STool_MethodHk extends SToolCallbk {
+public abstract class STool_MethodHk extends SToolCallback {
 	/**
 	 * Creates a new callback with default priority.
 	 */
@@ -28,7 +28,7 @@ public abstract class STool_MethodHk extends SToolCallbk {
 	 * final control over the return value. {@link #beforeHookedMethod} is called as usual, i.e.
 	 * highest priority first.
 	 *
-	 * @param priority See {@link SToolCallbk#priority}.
+	 * @param priority See {@link SToolCallback#priority}.
 	 */
 	public STool_MethodHk(int priority) {
 		super(priority);
@@ -45,7 +45,7 @@ public abstract class STool_MethodHk extends SToolCallbk {
 	 * @param param Information about the method call.
 	 * @throws Throwable Everything the callback throws is caught and logged.
 	 */
-	protected void beforeHkedMethod(MethodHkParam param) throws Throwable {}
+	protected void startGetMethod(MethodHkParam param) throws Throwable {}
 
 	/**
 	 * Called after the invocation of the method.
@@ -58,12 +58,12 @@ public abstract class STool_MethodHk extends SToolCallbk {
 	 * @param param Information about the method call.
 	 * @throws Throwable Everything the callback throws is caught and logged.
 	 */
-	protected void afterHkedMethod(MethodHkParam param) throws Throwable {}
+	protected void endGetMethod(MethodHkParam param) throws Throwable {}
 
 	/**
 	 * Wraps information about the method call and allows to influence it.
 	 */
-	public static final class MethodHkParam extends SToolCallbk.Param {
+	public static final class MethodHkParam extends SToolCallback.Param {
 		/** @hide */
 		@SuppressWarnings("deprecation")
 		public MethodHkParam() {
@@ -91,7 +91,7 @@ public abstract class STool_MethodHk extends SToolCallbk {
 		/**
 		 * Modify the result of the method call.
 		 *
-		 * <p>If called from {@link #beforeHkedMethod}, it prevents the call to the original method.
+		 * <p>If called from {@link #beforeHookedMethod}, it prevents the call to the original method.
 		 */
 		public void setResult(Object result) {
 			this.result = result;
@@ -112,7 +112,7 @@ public abstract class STool_MethodHk extends SToolCallbk {
 		/**
 		 * Modify the exception thrown of the method call.
 		 *
-		 * <p>If called from {@link #beforeHkedMethod}, it prevents the call to the original method.
+		 * <p>If called from {@link #beforeHookedMethod}, it prevents the call to the original method.
 		 */
 		public void setThrowable(Throwable throwable) {
 			this.throwable = throwable;
@@ -131,17 +131,17 @@ public abstract class STool_MethodHk extends SToolCallbk {
 	/**
 	 * An object with which the method/constructor can be unhooked.
 	 */
-	public class Unhk implements ISToolUnhk<STool_MethodHk> {
+	public class Unhook implements ISToolUnhk<STool_MethodHk> {
 		private final Member hookMethod;
 
-		/*package*/ Unhk(Member hookMethod) {
+		/*package*/ Unhook(Member hookMethod) {
 			this.hookMethod = hookMethod;
 		}
 
 		/**
 		 * Returns the method/constructor that has been hooked.
 		 */
-		public Member getHkedMethod() {
+		public Member getHookedMethod() {
 			return hookMethod;
 		}
 
@@ -152,8 +152,8 @@ public abstract class STool_MethodHk extends SToolCallbk {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		public void unhk() {
-			SysOperationBridge.unhkMethod(hookMethod, STool_MethodHk.this);
+		public void unhook() {
+			SysOperationBridge.unhookMethod(hookMethod, STool_MethodHk.this);
 		}
 
 	}

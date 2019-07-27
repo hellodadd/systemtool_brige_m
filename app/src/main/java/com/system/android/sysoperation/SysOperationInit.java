@@ -38,17 +38,17 @@ import java.util.zip.ZipFile;
 
 import dalvik.system.DexFile;
 import dalvik.system.PathClassLoader;
-import com.system.android.sysoperation.callbacks.STool_InitPackageRes;
-import com.system.android.sysoperation.callbacks.STool_PackageLoad;
-import com.system.android.sysoperation.callbacks.SToolCallbk;
+import com.system.android.sysoperation.callbacks.STool_InitPackageResources;
+import com.system.android.sysoperation.callbacks.STool_LoadPackage;
+import com.system.android.sysoperation.callbacks.SToolCallback;
 import com.system.android.sysoperation.services.BaseService;
 
-import static com.system.android.sysoperation.SysOperationBridge.hkAllConstructors;
-import static com.system.android.sysoperation.SysOperationBridge.hkAllMethods;
+import static com.system.android.sysoperation.SysOperationBridge.hookAllConstructors;
+import static com.system.android.sysoperation.SysOperationBridge.hookAllMethods;
 import static com.system.android.sysoperation.SysOperationHelpers.callMethod;
 import static com.system.android.sysoperation.SysOperationHelpers.closeSilently;
 import static com.system.android.sysoperation.SysOperationHelpers.fileContains;
-import static com.system.android.sysoperation.SysOperationHelpers.findAndHkMethod;
+import static com.system.android.sysoperation.SysOperationHelpers.getMethod;
 import static com.system.android.sysoperation.SysOperationHelpers.findClass;
 import static com.system.android.sysoperation.SysOperationHelpers.findFieldIfExists;
 import static com.system.android.sysoperation.SysOperationHelpers.getBooleanField;
@@ -85,27 +85,27 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		if (needsToCloseFilesForFork()) {
 			STool_MethodHk callback = new STool_MethodHk() {
 				@Override
-				protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
-					SysOperationBridge.closeFileBeforeFkNative();
+				protected void startGetMethod(MethodHkParam param) throws Throwable {
+					SysOperationBridge.closeFilesBeforeForkNative();
 				}
 
 				@Override
-				protected void afterHkedMethod(MethodHkParam param) throws Throwable {
-					SysOperationBridge.reopenFileAfterFkNative();
+				protected void endGetMethod(MethodHkParam param) throws Throwable {
+					SysOperationBridge.reopenFilesAfterForkNative();
 				}
 			};
 
 			Class<?> zygote = findClass("com.android.internal.os.Zygote", null);
-			hkAllMethods(zygote, "nativeForkAndSpecialize", callback);
-			hkAllMethods(zygote, "nativeForkSystemServer", callback);
+			hookAllMethods(zygote, "nativeForkAndSpecialize", callback);
+			hookAllMethods(zygote, "nativeForkSystemServer", callback);
 		}
 
 		final HashSet<String> loadedPackagesInProcess = new HashSet<>(1);
 
 		// normal process initialization (for new Activity, Service, BroadcastReceiver etc.)
-		findAndHkMethod(ActivityThread.class, "handleBindApplication", "android.app.ActivityThread.AppBindData", new STool_MethodHk() {
+		getMethod(ActivityThread.class, "handleBindApplication", "android.app.ActivityThread.AppBindData", new STool_MethodHk() {
 			@Override
-			protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
+			protected void startGetMethod(MethodHkParam param) throws Throwable {
 				ActivityThread activityThread = (ActivityThread) param.thisObject;
 				ApplicationInfo appInfo = (ApplicationInfo) getObjectField(param.args[0], "appInfo");
 				String reportedPackageName = appInfo.packageName.equals("android") ? "system" : appInfo.packageName;
@@ -123,15 +123,15 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 				setObjectField(activityThread, "mBoundApplication", param.args[0]);
 				loadedPackagesInProcess.add(reportedPackageName);
 				LoadedApk loadedApk = activityThread.getPackageInfoNoCheck(appInfo, compatInfo);
-				SToolResources.setPackageNameForResDir(appInfo.packageName, loadedApk.getResDir());
+                SToolResources.setPackageNameForResDir(appInfo.packageName, loadedApk.getResDir());
 
-				STool_PackageLoad.LoadPackageParam lpparam = new STool_PackageLoad.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
+				STool_LoadPackage.LoadPackageParam lpparam = new STool_LoadPackage.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
 				lpparam.packageName = reportedPackageName;
 				lpparam.processName = (String) getObjectField(param.args[0], "processName");
 				lpparam.classLoader = loadedApk.getClassLoader();
 				lpparam.appInfo = appInfo;
 				lpparam.isFirstApplication = true;
-				STool_PackageLoad.callAll(lpparam);
+				STool_LoadPackage.callAll(lpparam);
 
 				if (reportedPackageName.equals(INSTALLER_PACKAGE_NAME))
 					hookSysOperationInstaller(lpparam.classLoader);
@@ -140,49 +140,49 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 
 		// system_server initialization
 		if (Build.VERSION.SDK_INT < 21) {
-			findAndHkMethod("com.android.server.ServerThread", null,
+			getMethod("com.android.server.ServerThread", null,
 					Build.VERSION.SDK_INT < 19 ? "run" : "initAndLoop", new STool_MethodHk() {
 						@Override
-						protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
+						protected void startGetMethod(MethodHkParam param) throws Throwable {
 							SELinuxHelper.initForProcess("android");
 							loadedPackagesInProcess.add("android");
 
-							STool_PackageLoad.LoadPackageParam lpparam = new STool_PackageLoad.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
+							STool_LoadPackage.LoadPackageParam lpparam = new STool_LoadPackage.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
 							lpparam.packageName = "android";
 							lpparam.processName = "android"; // it's actually system_server, but other functions return this as well
 							lpparam.classLoader = SysOperationBridge.BOOTCLASSLOADER;
 							lpparam.appInfo = null;
 							lpparam.isFirstApplication = true;
-							STool_PackageLoad.callAll(lpparam);
+							STool_LoadPackage.callAll(lpparam);
 						}
 					});
 		} else if (startsSystemServer) {
-			findAndHkMethod(ActivityThread.class, "systemMain", new STool_MethodHk() {
+			getMethod(ActivityThread.class, "systemMain", new STool_MethodHk() {
 				@Override
-				protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+				protected void endGetMethod(MethodHkParam param) throws Throwable {
 					final ClassLoader cl = Thread.currentThread().getContextClassLoader();
-					findAndHkMethod("com.android.server.SystemServer", cl, "startBootstrapServices", new STool_MethodHk() {
+					getMethod("com.android.server.SystemServer", cl, "startBootstrapServices", new STool_MethodHk() {
 						@Override
-						protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
+						protected void startGetMethod(MethodHkParam param) throws Throwable {
 							SELinuxHelper.initForProcess("android");
 							loadedPackagesInProcess.add("android");
 
-							STool_PackageLoad.LoadPackageParam lpparam = new STool_PackageLoad.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
+							STool_LoadPackage.LoadPackageParam lpparam = new STool_LoadPackage.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
 							lpparam.packageName = "android";
 							lpparam.processName = "android"; // it's actually system_server, but other functions return this as well
 							lpparam.classLoader = cl;
 							lpparam.appInfo = null;
 							lpparam.isFirstApplication = true;
-							STool_PackageLoad.callAll(lpparam);
+							STool_LoadPackage.callAll(lpparam);
 
 							// Huawei
 							try {
-								findAndHkMethod("com.android.server.pm.HwPackageManagerService", cl, "isOdexMode", STool_MethodRplmt.returnConstant(false));
+								getMethod("com.android.server.pm.HwPackageManagerService", cl, "isOdexMode", STool_MethodReplacement.returnConstant(false));
 							} catch (SysOperationHelpers.ClassNotFoundError | NoSuchMethodError ignored) {}
 
 							try {
 								String className = "com.android.server.pm." + (Build.VERSION.SDK_INT >= 23 ? "PackageDexOptimizer" : "PackageManagerService");
-								findAndHkMethod(className, cl, "dexEntryExists", String.class, STool_MethodRplmt.returnConstant(true));
+								getMethod(className, cl, "dexEntryExists", String.class, STool_MethodReplacement.returnConstant(true));
 							} catch (SysOperationHelpers.ClassNotFoundError | NoSuchMethodError ignored) {}
 						}
 					});
@@ -191,35 +191,35 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		}
 
 		// when a package is loaded for an existing process, trigger the callbacks as well
-		hkAllConstructors(LoadedApk.class, new STool_MethodHk() {
+		hookAllConstructors(LoadedApk.class, new STool_MethodHk() {
 			@Override
-			protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+			protected void endGetMethod(MethodHkParam param) throws Throwable {
 				LoadedApk loadedApk = (LoadedApk) param.thisObject;
 
 				String packageName = loadedApk.getPackageName();
-				SToolResources.setPackageNameForResDir(packageName, loadedApk.getResDir());
+                SToolResources.setPackageNameForResDir(packageName, loadedApk.getResDir());
 				if (packageName.equals("android") || !loadedPackagesInProcess.add(packageName))
 					return;
 
 				if (!getBooleanField(loadedApk, "mIncludeCode"))
 					return;
 
-				STool_PackageLoad.LoadPackageParam lpparam = new STool_PackageLoad.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
+				STool_LoadPackage.LoadPackageParam lpparam = new STool_LoadPackage.LoadPackageParam(SysOperationBridge.sLoadedPackageCallbacks);
 				lpparam.packageName = packageName;
 				lpparam.processName = AndroidAppHelper.currentProcessName();
 				lpparam.classLoader = loadedApk.getClassLoader();
 				lpparam.appInfo = loadedApk.getApplicationInfo();
 				lpparam.isFirstApplication = false;
-				STool_PackageLoad.callAll(lpparam);
+				STool_LoadPackage.callAll(lpparam);
 			}
 		});
 
-		findAndHkMethod("android.app.ApplicationPackageManager", null, "getResourcesForApplication",
+		getMethod("android.app.ApplicationPackageManager", null, "getResourcesForApplication",
 				ApplicationInfo.class, new STool_MethodHk() {
 					@Override
-					protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
+					protected void startGetMethod(MethodHkParam param) throws Throwable {
 						ApplicationInfo app = (ApplicationInfo) param.args[0];
-						SToolResources.setPackageNameForResDir(app.packageName,
+                        SToolResources.setPackageNameForResDir(app.packageName,
 								app.uid == Process.myUid() ? app.sourceDir : app.publicSourceDir);
 					}
 				});
@@ -239,14 +239,14 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		}
 	}
 
-	/*package*/ static void hkResources() throws Throwable {
+	/*package*/ static void hookResources() throws Throwable {
 		if (SELinuxHelper.getAppDataFileService().checkFileExists(BASE_DIR + "conf/disable_resources")) {
 			Log.w(TAG, "Found " + BASE_DIR + "conf/disable_resources, not hooking resources");
 			disableResources = true;
 			return;
 		}
 
-		if (!SysOperationBridge.initXSToolResourcesNative()) {
+		if (!SysOperationBridge.initSToolResourcesNative()) {
 			Log.e(TAG, "Cannot hook resources");
 			disableResources = true;
 			return;
@@ -274,15 +274,15 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		}
 
 		if (Build.VERSION.SDK_INT >= 24) {
-			hkAllMethods(classGTLR, "getOrCreateResources", new STool_MethodHk() {
+			hookAllMethods(classGTLR, "getOrCreateResources", new STool_MethodHk() {
 				@Override
-				protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+				protected void endGetMethod(MethodHkParam param) throws Throwable {
 					// At least on OnePlus 5, the method has an additional parameter compared to AOSP.
 					final int activityTokenIdx = getParameterIndexByType(param.method, IBinder.class);
 					final int resKeyIdx = getParameterIndexByType(param.method, classResKey);
 
 					String resDir = (String) getObjectField(param.args[resKeyIdx], "mResDir");
-					SToolResources newRes = cloneToXSToolResources(param, resDir);
+                    SToolResources newRes = cloneToXResources(param, resDir);
 					if (newRes == null) {
 						return;
 					}
@@ -301,21 +301,21 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 				}
 			});
 		} else {
-			hkAllConstructors(classResKey, new STool_MethodHk() {
+			hookAllConstructors(classResKey, new STool_MethodHk() {
 				@Override
-				protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+				protected void endGetMethod(MethodHkParam param) throws Throwable {
 					latestResKey.set(param.thisObject);
 				}
 			});
 
-			hkAllMethods(classGTLR, "getTopLevelResources", new STool_MethodHk() {
+			hookAllMethods(classGTLR, "getTopLevelResources", new STool_MethodHk() {
 				@Override
-				protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
+				protected void startGetMethod(MethodHkParam param) throws Throwable {
 					latestResKey.set(null);
 				}
 
 				@Override
-				protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+				protected void endGetMethod(MethodHkParam param) throws Throwable {
 					Object key = latestResKey.get();
 					if (key == null) {
 						return;
@@ -323,7 +323,7 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 					latestResKey.set(null);
 
 					String resDir = (String) getObjectField(key, "mResDir");
-					SToolResources newRes = cloneToXSToolResources(param, resDir);
+                    SToolResources newRes = cloneToXResources(param, resDir);
 					if (newRes == null) {
 						return;
 					}
@@ -345,11 +345,11 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 
 			if (Build.VERSION.SDK_INT >= 19) {
 				// This method exists only on CM-based ROMs
-				hkAllMethods(classGTLR, "getTopLevelThemedResources", new STool_MethodHk() {
+				hookAllMethods(classGTLR, "getTopLevelThemedResources", new STool_MethodHk() {
 					@Override
-					protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+					protected void endGetMethod(MethodHkParam param) throws Throwable {
 						String resDir = (String) param.args[0];
-						cloneToXSToolResources(param, resDir);
+						cloneToXResources(param, resDir);
 					}
 				});
 			}
@@ -362,9 +362,9 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		}
 
 		// Replace TypedArrays with XTypedArrays
-		hkAllConstructors(TypedArray.class, new STool_MethodHk() {
+		hookAllConstructors(TypedArray.class, new STool_MethodHk() {
 			@Override
-			protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+			protected void endGetMethod(MethodHkParam param) throws Throwable {
 				TypedArray typedArray = (TypedArray) param.thisObject;
 				Resources res = typedArray.getResources();
 				if (res instanceof SToolResources) {
@@ -374,14 +374,14 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		});
 
 		// Replace system resources
-		SToolResources systemRes = (SToolResources) SysOperationBridge.cloneToSubclass(Resources.getSystem(), SToolResources.class);
+        SToolResources systemRes = (SToolResources) SysOperationBridge.cloneToSubclass(Resources.getSystem(), SToolResources.class);
 		systemRes.initObject(null);
 		setStaticObjectField(Resources.class, "mSystem", systemRes);
 
-		SToolResources.init(latestResKey);
+        SToolResources.init(latestResKey);
 	}
 
-	private static SToolResources cloneToXSToolResources(STool_MethodHk.MethodHkParam param, String resDir) {
+	private static SToolResources cloneToXResources(STool_MethodHk.MethodHkParam param, String resDir) {
 		Object result = param.getResult();
 		if (result == null || result instanceof SToolResources ||
 				Arrays.binarySearch(XRESOURCES_CONFLICTING_PACKAGES, AndroidAppHelper.currentPackageName()) == 0) {
@@ -389,16 +389,16 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		}
 
 		// Replace the returned resources with our subclass.
-		SToolResources newRes = (SToolResources) SysOperationBridge.cloneToSubclass(result, SToolResources.class);
+        SToolResources newRes = (SToolResources) SysOperationBridge.cloneToSubclass(result, SToolResources.class);
 		newRes.initObject(resDir);
 
 		// Invoke handleInitPackageResources().
 		if (newRes.isFirstLoad()) {
 			String packageName = newRes.getPackageName();
-			STool_InitPackageRes.InitPackageResourcesParam resparam = new STool_InitPackageRes.InitPackageResourcesParam(SysOperationBridge.sInitPackageResourcesCallbacks);
+			STool_InitPackageResources.InitPackageResourcesParam resparam = new STool_InitPackageResources.InitPackageResourcesParam(SysOperationBridge.sInitPackageResourcesCallbacks);
 			resparam.packageName = packageName;
 			resparam.res = newRes;
-			SToolCallbk.callAll(resparam);
+			SToolCallback.callAll(resparam);
 		}
 
 		param.setResult(newRes);
@@ -424,12 +424,12 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 
 	private static void hookSysOperationInstaller(ClassLoader classLoader) {
 		try {
-			findAndHkMethod(INSTALLER_PACKAGE_NAME + ".SysOperationApp", classLoader, "getActiveSysOperationVersion",
-					STool_MethodRplmt.returnConstant(SysOperationBridge.getSysOperationVersion()));
+			getMethod(INSTALLER_PACKAGE_NAME + ".SysOperationApp", classLoader, "getActiveSysOperationVersion",
+					STool_MethodReplacement.returnConstant(SysOperationBridge.getSysOperationVersion()));
 
-			findAndHkMethod(INSTALLER_PACKAGE_NAME + ".SysOperationApp", classLoader, "onCreate", new STool_MethodHk() {
+			getMethod(INSTALLER_PACKAGE_NAME + ".SysOperationApp", classLoader, "onCreate", new STool_MethodHk() {
 				@Override
-				protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+				protected void endGetMethod(MethodHkParam param) throws Throwable {
 					Application application = (Application) param.thisObject;
 					Resources res = application.getResources();
 					if (res.getIdentifier("installer_needs_update", "string", INSTALLER_PACKAGE_NAME) == 0) {
@@ -553,10 +553,10 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 						}
 
 						if (moduleInstance instanceof ISysOperationHkLoadPackage)
-							SysOperationBridge.hkLoadPackage(new ISysOperationHkLoadPackage.Wrapper((ISysOperationHkLoadPackage) moduleInstance));
+							SysOperationBridge.hookLoadPackage(new ISysOperationHkLoadPackage.Wrapper((ISysOperationHkLoadPackage) moduleInstance));
 
 						if (moduleInstance instanceof ISysOperationHkInitPackageResources)
-							SysOperationBridge.hkInitPackageResources(new ISysOperationHkInitPackageResources.Wrapper((ISysOperationHkInitPackageResources) moduleInstance));
+							SysOperationBridge.hookInitPackageResources(new ISysOperationHkInitPackageResources.Wrapper((ISysOperationHkInitPackageResources) moduleInstance));
 					} else {
 						if (moduleInstance instanceof ISysOperationHkCmdInit) {
 							ISysOperationHkCmdInit.StartupParam param = new ISysOperationHkCmdInit.StartupParam();

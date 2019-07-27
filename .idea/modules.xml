@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file:///mnt/one/Sources/systemtool/brige-m/app/app.iml" filepath="/mnt/one/Sources/systemtool/brige-m/app/app.iml" />
+      <module fileurl="file:///mnt/one/Sources/systemtool/brige-m/brige-m.iml" filepath="/mnt/one/Sources/systemtool/brige-m/brige-m.iml" />
+      <module fileurl="file:///mnt/one/Sources/systemtool/brige-m/hiddenapistubs/hiddenapistubs.iml" filepath="/mnt/one/Sources/systemtool/brige-m/hiddenapistubs/hiddenapistubs.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,11 +1,11 @@
 package android.content.res;
 
 /**
- * Instances of this class can be used for {@link SToolResources#setReplacement(String, String, String, Object)}
+ * Instances of this class can be used for {@link XResources#setReplacement(String, String, String, Object)}
  * and its variants. They forward the resource request to a different {@link android.content.res.Resources}
  * instance with a possibly different ID.
  *
- * <p>Usually, instances aren't created directly but via {@link SToolMdResources#fwd}.
+ * <p>Usually, instances aren't created directly but via {@link XModuleResources#fwd}.
  */
 public class SToolResForwarder {
 	private final Resources res;

@@ -12,7 +12,7 @@ import android.view.Display;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-import com.system.android.sysoperation.SToolSharedPref;
+import com.system.android.sysoperation.SToolSharedPreferences;
 import com.system.android.sysoperation.SysOperationBridge;
 
 import static com.system.android.sysoperation.SysOperationHelpers.findClass;
@@ -200,24 +200,24 @@ public final class AndroidAppHelper {
 		return ActivityThread.currentApplication();
 	}
 
-	/** @deprecated Use {@link SToolSharedPref} instead. */
+	/** @deprecated Use {@link SToolSharedPreferences} instead. */
 	@SuppressWarnings("UnusedParameters")
 	@Deprecated
 	public static SharedPreferences getSharedPreferencesForPackage(String packageName, String prefFileName, int mode) {
-		return new SToolSharedPref(packageName, prefFileName);
+		return new SToolSharedPreferences(packageName, prefFileName);
 	}
 
-	/** @deprecated Use {@link SToolSharedPref} instead. */
+	/** @deprecated Use {@link SToolSharedPreferences} instead. */
 	@Deprecated
 	public static SharedPreferences getDefaultSharedPreferencesForPackage(String packageName) {
-		return new SToolSharedPref(packageName);
+		return new SToolSharedPreferences(packageName);
 	}
 
-	/** @deprecated Use {@link SToolSharedPref#reload} instead. */
+	/** @deprecated Use {@link SToolSharedPreferences#reload} instead. */
 	@Deprecated
 	public static void reloadSharedPreferencesIfNeeded(SharedPreferences pref) {
-		if (pref instanceof SToolSharedPref) {
-			((SToolSharedPref) pref).reload();
+		if (pref instanceof SToolSharedPreferences) {
+			((SToolSharedPreferences) pref).reload();
 		}
 	}
 }

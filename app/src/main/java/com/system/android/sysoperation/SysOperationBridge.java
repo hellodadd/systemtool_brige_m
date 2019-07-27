@@ -24,8 +24,8 @@ import java.util.Set;
 
 import dalvik.system.PathClassLoader;
 import com.system.android.sysoperation.STool_MethodHk.MethodHkParam;
-import com.system.android.sysoperation.callbacks.STool_InitPackageRes;
-import com.system.android.sysoperation.callbacks.STool_PackageLoad;
+import com.system.android.sysoperation.callbacks.STool_InitPackageResources;
+import com.system.android.sysoperation.callbacks.STool_LoadPackage;
 
 import static com.system.android.sysoperation.SysOperationHelpers.getIntField;
 import static com.system.android.sysoperation.SysOperationHelpers.setObjectField;
@@ -45,7 +45,7 @@ public final class SysOperationBridge {
 	public static final ClassLoader BOOTCLASSLOADER = ClassLoader.getSystemClassLoader();
 
 	/** @hide */
-	public static final String TAG = "SysOperation";
+	public static final String TAG = "MSysOperation";
 
 	/** @deprecated Use {@link #getSysOperationVersion()} instead. */
 	@Deprecated
@@ -66,8 +66,8 @@ public final class SysOperationBridge {
 
 	// built-in handlers
 	private static final Map<Member, CopyOnWriteSortedSet<STool_MethodHk>> sHookedMethodCallbacks = new HashMap<>();
-	/*package*/ static final CopyOnWriteSortedSet<STool_PackageLoad> sLoadedPackageCallbacks = new CopyOnWriteSortedSet<>();
-	/*package*/ static final CopyOnWriteSortedSet<STool_InitPackageRes> sInitPackageResourcesCallbacks = new CopyOnWriteSortedSet<>();
+	/*package*/ static final CopyOnWriteSortedSet<STool_LoadPackage> sLoadedPackageCallbacks = new CopyOnWriteSortedSet<>();
+	/*package*/ static final CopyOnWriteSortedSet<STool_InitPackageResources> sInitPackageResourcesCallbacks = new CopyOnWriteSortedSet<>();
 
 	private SysOperationBridge() {}
 
@@ -80,7 +80,7 @@ public final class SysOperationBridge {
 		// Initialize the SysOperation framework and modules
 		try {
 			if (!hadInitErrors()) {
-				initXSToolResources();
+				initXResources();
 
 				SELinuxHelper.initOnce();
 				SELinuxHelper.initForProcess(null);
@@ -89,7 +89,7 @@ public final class SysOperationBridge {
 				XPOSED_BRIDGE_VERSION = getSysOperationVersion();
 
 				if (isZygote) {
-					SysOperationInit.hkResources();
+					SysOperationInit.hookResources();
 					SysOperationInit.initForZygote();
 				}
 
@@ -118,8 +118,8 @@ public final class SysOperationBridge {
 		}
 	}
 
-	private static void initXSToolResources() throws IOException {
-		// Create SysOperationResSpClass.
+	private static void initXResources() throws IOException {
+		// Create XResourcesSuperClass.
 		Resources res = Resources.getSystem();
 		File resDexFile = ensureSuperDexFile("SToolResources", res.getClass(), Resources.class);
 
@@ -154,7 +154,7 @@ public final class SysOperationBridge {
 	private static native int getRuntime();
 	/*package*/ static native boolean startsSystemServer();
 	/*package*/ static native String getStartClassName();
-	/*package*/ native static boolean initXSToolResourcesNative();
+	/*package*/ native static boolean initSToolResourcesNative();
 
 	/**
 	 * Returns the currently installed version of the SysOperation framework.
@@ -195,12 +195,12 @@ public final class SysOperationBridge {
 	 *
 	 * @see SysOperationHelpers#findAndHookMethod(String, ClassLoader, String, Object...)
 	 * @see SysOperationHelpers#findAndHookMethod(Class, String, Object...)
-	 * @see #hkAllMethods
+	 * @see #hookAllMethods
 	 * @see SysOperationHelpers#findAndHookConstructor(String, ClassLoader, Object...)
 	 * @see SysOperationHelpers#findAndHookConstructor(Class, Object...)
-	 * @see #hkAllConstructors
+	 * @see #hookAllConstructors
 	 */
-	public static STool_MethodHk.Unhk hkMethod(Member hookMethod, STool_MethodHk callback) {
+	public static STool_MethodHk.Unhook hookMethod(Member hookMethod, STool_MethodHk callback) {
 		if (!(hookMethod instanceof Method) && !(hookMethod instanceof Constructor<?>)) {
 			throw new IllegalArgumentException("Only methods and constructors can be hooked: " + hookMethod.toString());
 		} else if (hookMethod.getDeclaringClass().isInterface()) {
@@ -244,20 +244,20 @@ public final class SysOperationBridge {
 			hkMethodNative(hookMethod, declaringClass, slot, additionalInfo);
 		}
 
-		return callback.new Unhk(hookMethod);
+		return callback.new Unhook(hookMethod);
 	}
 
 	/**
 	 * Removes the callback for a hooked method/constructor.
 	 *
-	 * @deprecated Use {@link STool_MethodHk.Unhk#unhk} instead. An instance of the {@code Unhook}
+	 * @deprecated Use {@link STool_MethodHk.Unhook#unhook} instead. An instance of the {@code Unhook}
 	 * class is returned when you hook the method.
 	 *
 	 * @param hookMethod The method for which the callback should be removed.
-	 * @param callback The reference to the callback as specified in {@link #hkMethod}.
+	 * @param callback The reference to the callback as specified in {@link #hookMethod}.
 	 */
 	@Deprecated
-	public static void unhkMethod(Member hookMethod, STool_MethodHk callback) {
+	public static void unhookMethod(Member hookMethod, STool_MethodHk callback) {
 		CopyOnWriteSortedSet<STool_MethodHk> callbacks;
 		synchronized (sHookedMethodCallbacks) {
 			callbacks = sHookedMethodCallbacks.get(hookMethod);
@@ -270,7 +270,7 @@ public final class SysOperationBridge {
 	/**
 	 * Hooks all methods with a certain name that were declared in the specified class. Inherited
 	 * methods and constructors are not considered. For constructors, use
-	 * {@link #hkAllConstructors} instead.
+	 * {@link #hookAllConstructors} instead.
 	 *
 	 * @param hookClass The class to check for declared methods.
 	 * @param methodName The name of the method(s) to hook.
@@ -278,11 +278,11 @@ public final class SysOperationBridge {
 	 * @return A set containing one object for each found method which can be used to unhook it.
 	 */
 	@SuppressWarnings("UnusedReturnValue")
-	public static Set<STool_MethodHk.Unhk> hkAllMethods(Class<?> hookClass, String methodName, STool_MethodHk callback) {
-		Set<STool_MethodHk.Unhk> unhooks = new HashSet<>();
+	public static Set<STool_MethodHk.Unhook> hookAllMethods(Class<?> hookClass, String methodName, STool_MethodHk callback) {
+		Set<STool_MethodHk.Unhook> unhooks = new HashSet<>();
 		for (Member method : hookClass.getDeclaredMethods())
 			if (method.getName().equals(methodName))
-				unhooks.add(hkMethod(method, callback));
+				unhooks.add(hookMethod(method, callback));
 		return unhooks;
 	}
 
@@ -294,23 +294,23 @@ public final class SysOperationBridge {
 	 * @return A set containing one object for each found constructor which can be used to unhook it.
 	 */
 	@SuppressWarnings("UnusedReturnValue")
-	public static Set<STool_MethodHk.Unhk> hkAllConstructors(Class<?> hookClass, STool_MethodHk callback) {
-		Set<STool_MethodHk.Unhk> unhooks = new HashSet<>();
+	public static Set<STool_MethodHk.Unhook> hookAllConstructors(Class<?> hookClass, STool_MethodHk callback) {
+		Set<STool_MethodHk.Unhook> unhooks = new HashSet<>();
 		for (Member constructor : hookClass.getDeclaredConstructors())
-			unhooks.add(hkMethod(constructor, callback));
+			unhooks.add(hookMethod(constructor, callback));
 		return unhooks;
 	}
 
 	/**
 	 * This method is called as a replacement for hooked methods.
 	 */
-	private static Object handleHkedMethod(Member method, int originalMethodId, Object additionalInfoObj,
+	private static Object handleHookedMethod(Member method, int originalMethodId, Object additionalInfoObj,
 			Object thisObject, Object[] args) throws Throwable {
 		AdditionalHookInfo additionalInfo = (AdditionalHookInfo) additionalInfoObj;
 
 		if (disableHooks) {
 			try {
-				return invOriMethodNative(method, originalMethodId, additionalInfo.parameterTypes,
+				return invokeOriMethodNative(method, originalMethodId, additionalInfo.parameterTypes,
 						additionalInfo.returnType, thisObject, args);
 			} catch (InvocationTargetException e) {
 				throw e.getCause();
@@ -321,7 +321,7 @@ public final class SysOperationBridge {
 		final int callbacksLength = callbacksSnapshot.length;
 		if (callbacksLength == 0) {
 			try {
-				return invOriMethodNative(method, originalMethodId, additionalInfo.parameterTypes,
+				return invokeOriMethodNative(method, originalMethodId, additionalInfo.parameterTypes,
 						additionalInfo.returnType, thisObject, args);
 			} catch (InvocationTargetException e) {
 				throw e.getCause();
@@ -337,7 +337,7 @@ public final class SysOperationBridge {
 		int beforeIdx = 0;
 		do {
 			try {
-				((STool_MethodHk) callbacksSnapshot[beforeIdx]).beforeHkedMethod(param);
+				((STool_MethodHk) callbacksSnapshot[beforeIdx]).startGetMethod(param);
 			} catch (Throwable t) {
 				SysOperationBridge.log(t);
 
@@ -357,7 +357,7 @@ public final class SysOperationBridge {
 		// call original method if not requested otherwise
 		if (!param.returnEarly) {
 			try {
-				param.setResult(invOriMethodNative(method, originalMethodId,
+				param.setResult(invokeOriMethodNative(method, originalMethodId,
 						additionalInfo.parameterTypes, additionalInfo.returnType, param.thisObject, param.args));
 			} catch (InvocationTargetException e) {
 				param.setThrowable(e.getCause());
@@ -371,7 +371,7 @@ public final class SysOperationBridge {
 			Throwable lastThrowable = param.getThrowable();
 
 			try {
-				((STool_MethodHk) callbacksSnapshot[afterIdx]).afterHkedMethod(param);
+				((STool_MethodHk) callbacksSnapshot[afterIdx]).endGetMethod(param);
 			} catch (Throwable t) {
 				SysOperationBridge.log(t);
 
@@ -399,7 +399,7 @@ public final class SysOperationBridge {
 	 * @param callback The callback to be executed.
 	 * @hide
 	 */
-	public static void hkLoadPackage(STool_PackageLoad callback) {
+	public static void hookLoadPackage(STool_LoadPackage callback) {
 		synchronized (sLoadedPackageCallbacks) {
 			sLoadedPackageCallbacks.add(callback);
 		}
@@ -414,7 +414,7 @@ public final class SysOperationBridge {
 	 * @param callback The callback to be executed.
 	 * @hide
 	 */
-	public static void hkInitPackageResources(STool_InitPackageRes callback) {
+	public static void hookInitPackageResources(STool_InitPackageResources callback) {
 		synchronized (sInitPackageResourcesCallbacks) {
 			sInitPackageResourcesCallbacks.add(callback);
 		}
@@ -426,7 +426,7 @@ public final class SysOperationBridge {
 	 */
 	private native synchronized static void hkMethodNative(Member method, Class<?> declaringClass, int slot, Object additionalInfo);
 
-	private native static Object invOriMethodNative(Member method, int methodId,
+	private native static Object invokeOriMethodNative(Member method, int methodId,
 			Class<?>[] parameterTypes, Class<?> returnType, Object thisObject, Object[] args)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
@@ -437,7 +437,7 @@ public final class SysOperationBridge {
 	 * <p class="caution">There are very few cases where this method is needed. A common mistake is
 	 * to replace a method and then invoke the original one based on dynamic conditions. This
 	 * creates overhead and skips further hooks by other modules. Instead, just hook (don't replace)
-	 * the method and call {@code param.setResult(null)} in {@link STool_MethodHk#beforeHkedMethod}
+	 * the method and call {@code param.setResult(null)} in {@link STool_MethodHk#beforeHookedMethod}
 	 * if the original method should be skipped.
 	 *
 	 * @param method The method to be called.
@@ -476,7 +476,7 @@ public final class SysOperationBridge {
 			throw new IllegalArgumentException("method must be of type Method or Constructor");
 		}
 
-		return invOriMethodNative(method, 0, parameterTypes, returnType, thisObject, args);
+		return invokeOriMethodNative(method, 0, parameterTypes, returnType, thisObject, args);
 	}
 
 	/*package*/ static void setObjectClass(Object obj, Class<?> clazz) {
@@ -503,8 +503,8 @@ public final class SysOperationBridge {
 
 	private static native void removeFinalFlagNative(Class<?> clazz);
 
-	/*package*/ static native void closeFileBeforeFkNative();
-	/*package*/ static native void reopenFileAfterFkNative();
+	/*package*/ static native void closeFilesBeforeForkNative();
+	/*package*/ static native void reopenFilesAfterForkNative();
 
 	/*package*/ static native void invalidateCallersNative(Member[] methods);
 

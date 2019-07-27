@@ -2,8 +2,8 @@ package com.system.android.sysoperation;
 
 import android.app.Application;
 
-import com.system.android.sysoperation.callbacks.STool_PackageLoad;
-import com.system.android.sysoperation.callbacks.STool_PackageLoad.LoadPackageParam;
+import com.system.android.sysoperation.callbacks.STool_LoadPackage;
+import com.system.android.sysoperation.callbacks.STool_LoadPackage.LoadPackageParam;
 
 /**
  * Get notified when an app ("Android package") is loaded.
@@ -24,7 +24,7 @@ public interface ISysOperationHkLoadPackage extends ISysOperationMod {
 	void handleLoadPackage(LoadPackageParam lpparam) throws Throwable;
 
 	/** @hide */
-	final class Wrapper extends STool_PackageLoad {
+	final class Wrapper extends STool_LoadPackage {
 		private final ISysOperationHkLoadPackage instance;
 		public Wrapper(ISysOperationHkLoadPackage instance) {
 			this.instance = instance;

@@ -21,5 +21,5 @@ public interface ISToolUnhk<T> {
 	/**
 	 * Removes the callback.
 	 */
-	void unhk();
+	void unhook();
 }

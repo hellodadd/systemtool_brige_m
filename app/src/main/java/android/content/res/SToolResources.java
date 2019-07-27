@@ -31,14 +31,14 @@ import com.system.android.sysoperation.STool_MethodHk;
 import com.system.android.sysoperation.STool_MethodHk.MethodHkParam;
 import com.system.android.sysoperation.SysOperationBridge;
 import com.system.android.sysoperation.SysOperationBridge.CopyOnWriteSortedSet;
-import com.system.android.sysoperation.callbacks.STool_InflatedLayout;
-import com.system.android.sysoperation.callbacks.STool_InflatedLayout.LayoutInflatedParam;
-import com.system.android.sysoperation.callbacks.SToolCallbk;
-import sysoperation.res.SToolResourcesSuperClass;
-import sysoperation.res.SToolTypedArraySuperClass;
+import com.system.android.sysoperation.callbacks.STool_LayoutInflated;
+import com.system.android.sysoperation.callbacks.STool_LayoutInflated.LayoutInflatedParam;
+import com.system.android.sysoperation.callbacks.SToolCallback;
+import sysoperation.dummy.SToolResourcesSuperClass;
+import sysoperation.dummy.SToolTypedArraySuperClass;
 
 import static com.system.android.sysoperation.SysOperationHelpers.decrementMethodDepth;
-import static com.system.android.sysoperation.SysOperationHelpers.findAndHkMethod;
+import static com.system.android.sysoperation.SysOperationHelpers.getMethod;
 import static com.system.android.sysoperation.SysOperationHelpers.getIntField;
 import static com.system.android.sysoperation.SysOperationHelpers.getLongField;
 import static com.system.android.sysoperation.SysOperationHelpers.getObjectField;
@@ -61,7 +61,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	private static final HashMap<String, byte[]> sReplacementsCacheMap = new HashMap<>();
 	private static final SparseArray<ColorStateList> sColorStateListCache = new SparseArray<>(0);
 
-	private static final SparseArray<HashMap<String, CopyOnWriteSortedSet<STool_InflatedLayout>>> sLayoutCallbacks = new SparseArray<>();
+	private static final SparseArray<HashMap<String, CopyOnWriteSortedSet<STool_LayoutInflated>>> sLayoutCallbacks = new SparseArray<>();
 	private static final WeakHashMap<XmlResourceParser, XMLInstanceDetails> sXmlInstanceDetails = new WeakHashMap<>();
 
 	private static final String EXTRA_XML_INSTANCE_DETAILS = "xmlInstanceDetails";
@@ -181,7 +181,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * Special case of {@link #getPackageName} during object creation.
 	 *
 	 * <p>For a short moment during/after the creation of a new {@link android.content.res Resources}
-	 * object, it isn't an instance of {@link SToolResources} yet. For any hooks that need information
+	 * object, it isn't an instance of {@link XResources} yet. For any hooks that need information
 	 * about the just created object during this particular stage, this method will return the
 	 * package name.
 	 *
@@ -201,9 +201,9 @@ public class SToolResources extends SToolResourcesSuperClass {
 	public static void init(ThreadLocal<Object> latestResKey) throws Exception {
 		sLatestResKey = latestResKey;
 
-		findAndHkMethod(LayoutInflater.class, "inflate", XmlPullParser.class, ViewGroup.class, boolean.class, new STool_MethodHk() {
+		getMethod(LayoutInflater.class, "inflate", XmlPullParser.class, ViewGroup.class, boolean.class, new STool_MethodHk() {
 			@Override
-			protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+			protected void endGetMethod(MethodHkParam param) throws Throwable {
 				if (param.hasThrowable())
 					return;
 
@@ -217,19 +217,19 @@ public class SToolResources extends SToolResourcesSuperClass {
 					liparam.resNames = details.resNames;
 					liparam.variant = details.variant;
 					liparam.res = details.res;
-					SToolCallbk.callAll(liparam);
+					SToolCallback.callAll(liparam);
 				}
 			}
 		});
 
 		final STool_MethodHk parseIncludeHook = new STool_MethodHk() {
 			@Override
-			protected void beforeHkedMethod(MethodHkParam param) throws Throwable {
+			protected void startGetMethod(MethodHkParam param) throws Throwable {
 				sIncludedLayouts.get().push(param);
 			}
 
 			@Override
-			protected void afterHkedMethod(MethodHkParam param) throws Throwable {
+			protected void endGetMethod(MethodHkParam param) throws Throwable {
 				sIncludedLayouts.get().pop();
 
 				if (param.hasThrowable())
@@ -244,18 +244,18 @@ public class SToolResources extends SToolResourcesSuperClass {
 					liparam.resNames = details.resNames;
 					liparam.variant = details.variant;
 					liparam.res = details.res;
-					SToolCallbk.callAll(liparam);
+					SToolCallback.callAll(liparam);
 				}
 			}
 		};
 		if (Build.VERSION.SDK_INT < 21) {
-			findAndHkMethod(LayoutInflater.class, "parseInclude", XmlPullParser.class, View.class,
+			getMethod(LayoutInflater.class, "parseInclude", XmlPullParser.class, View.class,
 					AttributeSet.class, parseIncludeHook);
 		} else if (Build.VERSION.SDK_INT < 23) {
-			findAndHkMethod(LayoutInflater.class, "parseInclude", XmlPullParser.class, View.class,
+			getMethod(LayoutInflater.class, "parseInclude", XmlPullParser.class, View.class,
 					AttributeSet.class, boolean.class, parseIncludeHook);
 		} else {
-			findAndHkMethod(LayoutInflater.class, "parseInclude", XmlPullParser.class, Context.class,
+			getMethod(LayoutInflater.class, "parseInclude", XmlPullParser.class, Context.class,
 					View.class, AttributeSet.class, parseIncludeHook);
 		}
 	}
@@ -361,7 +361,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * replacement from the last call is used. Setting the replacement to {@code null} removes it.
 	 *
 	 * <p>The allowed replacements depend on the type of the source. All types accept an
-	 * {@link XSToolMdResources} object, which is usually created with {@link XSToolMdResources#fwd}.
+	 * {@link XResForwarder} object, which is usually created with {@link XModuleResources#fwd}.
 	 * The resource request will then be forwarded to another {@link android.content.res.Resources}
 	 * object. In addition to that, the following replacement types are accepted:
 	 *
@@ -537,7 +537,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * accessible via {@link android.R android.R} and are not bound to a specific
 	 * {@link android.content.res.Resources} instance. Such resources can be replaced in
 	 * {@link ISysOperationHookZygoteInit#initZygote initZygote()} for all apps. As there is no
-	 * {@link XSToolResources} object easily available in that scope, this static method can be used
+	 * {@link XResources} object easily available in that scope, this static method can be used
 	 * to set resource replacements. All other details (e.g. how certain types can be replaced) are
 	 * mentioned in {@link #setReplacement(String, String, String, Object)}.
 	 *
@@ -960,12 +960,12 @@ public class SToolResources extends SToolResourcesSuperClass {
 		}
 
 		// Check whether this layout is hooked
-		HashMap<String, CopyOnWriteSortedSet<STool_InflatedLayout>> inner;
+		HashMap<String, CopyOnWriteSortedSet<STool_LayoutInflated>> inner;
 		synchronized (sLayoutCallbacks) {
 			inner = sLayoutCallbacks.get(id);
 		}
 		if (inner != null) {
-			CopyOnWriteSortedSet<STool_InflatedLayout> callbacks;
+			CopyOnWriteSortedSet<STool_LayoutInflated> callbacks;
 			synchronized (inner) {
 				callbacks = inner.get(mResDir);
 				if (callbacks == null && mResDir != null)
@@ -1196,7 +1196,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * Generates a fake resource ID.
 	 *
 	 * <p>This variant uses the result of {@link #getResourceName} to create the hash that the ID is
-	 * based on. The given resource doesn't need to match the {@link SToolResources} instance for which
+	 * based on. The given resource doesn't need to match the {@link XResources} instance for which
 	 * the fake resource ID is going to be used.
 	 *
 	 * @param res The {@link android.content.res.Resources} object to be used for hashing.
@@ -1209,7 +1209,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 
 	/**
 	 * Makes any individual resource available from another {@link android.content.res.Resources}
-	 * instance available in this {@link SToolResources} instance.
+	 * instance available in this {@link XResources} instance.
 	 *
 	 * <p>This method combines calls to {@link #getFakeResId(Resources, int)} and
 	 * {@link #setReplacement(int, Object)} to generate a fake resource ID and set up a replacement
@@ -1496,7 +1496,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 		/**
 		 * Called when the hooked drawable resource has been requested.
 		 *
-		 * @param res The {@link SToolResources} object in which the hooked drawable resides.
+		 * @param res The {@link XResources} object in which the hooked drawable resides.
 		 * @param id The resource ID which has been requested.
 		 * @return The {@link Drawable} which should be used as replacement. {@code null} is ignored.
 		 * @throws Throwable Everything the callback throws is caught and logged.
@@ -1507,7 +1507,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 		 * Like {@link #newDrawable}, but called for {@link #getDrawableForDensity}. The default
 		 * implementation is to use the result of {@link #newDrawable}.
 		 *
-		 * @param res The {@link SToolResources} object in which the hooked drawable resides.
+		 * @param res The {@link XResources} object in which the hooked drawable resides.
 		 * @param id The resource ID which has been requested.
 		 * @param density The desired screen density indicated by the resource as found in
 		 *                {@link DisplayMetrics}.
@@ -1571,10 +1571,10 @@ public class SToolResources extends SToolResourcesSuperClass {
 	private class XMLInstanceDetails {
 		public final ResourceNames resNames;
 		public final String variant;
-		public final CopyOnWriteSortedSet<STool_InflatedLayout> callbacks;
+		public final CopyOnWriteSortedSet<STool_LayoutInflated> callbacks;
 		public final SToolResources res = SToolResources.this;
 
-		private XMLInstanceDetails(ResourceNames resNames, String variant, CopyOnWriteSortedSet<STool_InflatedLayout> callbacks) {
+		private XMLInstanceDetails(ResourceNames resNames, String variant, CopyOnWriteSortedSet<STool_LayoutInflated> callbacks) {
 			this.resNames = resNames;
 			this.variant = variant;
 			this.callbacks = callbacks;
@@ -1588,14 +1588,14 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * @param callback The callback to be executed when the layout has been inflated.
 	 * @return An object which can be used to remove the callback again.
 	 */
-	public STool_InflatedLayout.Unhook hookLayout(int id, STool_InflatedLayout callback) {
+	public STool_LayoutInflated.Unhook hookLayout(int id, STool_LayoutInflated callback) {
 		return hookLayoutInternal(mResDir, id, getResourceNames(id), callback);
 	}
 
 	/**
 	 * Hook the inflation of a layout.
 	 *
-	 * @deprecated Use {@link #hookLayout(String, String, String, STool_InflatedLayout)} instead.
+	 * @deprecated Use {@link #hookLayout(String, String, String, STool_LayoutInflated)} instead.
 	 *
 	 * @param fullName The full resource name, e.g. {@code com.android.systemui:layout/statusbar}.
 	 *                 See {@link #getResourceName}.
@@ -1603,7 +1603,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * @return An object which can be used to remove the callback again.
 	 */
 	@Deprecated
-	public STool_InflatedLayout.Unhook hookLayout(String fullName, STool_InflatedLayout callback) {
+	public STool_LayoutInflated.Unhook hookLayout(String fullName, STool_LayoutInflated callback) {
 		int id = getIdentifier(fullName, null, null);
 		if (id == 0)
 			throw new NotFoundException(fullName);
@@ -1622,7 +1622,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * @param callback The callback to be executed when the layout has been inflated.
 	 * @return An object which can be used to remove the callback again.
 	 */
-	public STool_InflatedLayout.Unhook hookLayout(String pkg, String type, String name, STool_InflatedLayout callback) {
+	public STool_LayoutInflated.Unhook hookLayout(String pkg, String type, String name, STool_LayoutInflated callback) {
 		int id = getIdentifier(name, type, pkg);
 		if (id == 0)
 			throw new NotFoundException(pkg + ":" + type + "/" + name);
@@ -1631,13 +1631,13 @@ public class SToolResources extends SToolResourcesSuperClass {
 
 	/**
 	 * Hook the inflation of an Android framework layout (in the {@code android} package).
-	 * See {@link #hookSystemWideLayout(String, String, String, STool_InflatedLayout)}.
+	 * See {@link #hookSystemWideLayout(String, String, String, STool_LayoutInflated)}.
 	 *
 	 * @param id The ID of the resource which should be replaced.
 	 * @param callback The callback to be executed when the layout has been inflated.
 	 * @return An object which can be used to remove the callback again.
 	 */
-	public static STool_InflatedLayout.Unhook hookSystemWideLayout(int id, STool_InflatedLayout callback) {
+	public static STool_LayoutInflated.Unhook hookSystemWideLayout(int id, STool_LayoutInflated callback) {
 		if (id >= 0x7f000000)
 			throw new IllegalArgumentException("ids >= 0x7f000000 are app specific and cannot be set for the framework");
 		return hookLayoutInternal(null, id, getSystemResourceNames(id), callback);
@@ -1645,9 +1645,9 @@ public class SToolResources extends SToolResourcesSuperClass {
 
 	/**
 	 * Hook the inflation of an Android framework layout (in the {@code android} package).
-	 * See {@link #hookSystemWideLayout(String, String, String, STool_InflatedLayout)}.
+	 * See {@link #hookSystemWideLayout(String, String, String, STool_LayoutInflated)}.
 	 *
-	 * @deprecated Use {@link #hookSystemWideLayout(String, String, String, STool_InflatedLayout)} instead.
+	 * @deprecated Use {@link #hookSystemWideLayout(String, String, String, STool_LayoutInflated)} instead.
 	 *
 	 * @param fullName The full resource name, e.g. {@code android:layout/simple_list_item_1}.
 	 *                 See {@link #getResourceName}.
@@ -1655,7 +1655,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * @return An object which can be used to remove the callback again.
 	 */
 	@Deprecated
-	public static STool_InflatedLayout.Unhook hookSystemWideLayout(String fullName, STool_InflatedLayout callback) {
+	public static STool_LayoutInflated.Unhook hookSystemWideLayout(String fullName, STool_LayoutInflated callback) {
 		int id = getSystem().getIdentifier(fullName, null, null);
 		if (id == 0)
 			throw new NotFoundException(fullName);
@@ -1669,7 +1669,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * accessible via {@link android.R.layout android.R.layout} and are not bound to a specific
 	 * {@link android.content.res.Resources} instance. Such resources can be replaced in
 	 * {@link ISysOperationHookZygoteInit#initZygote initZygote()} for all apps. As there is no
-	 * {@link SToolResources} object easily available in that scope, this static method can be used
+	 * {@link XResources} object easily available in that scope, this static method can be used
 	 * to hook layouts.
 	 *
 	 * @param pkg The package name, e.g. {@code android}.
@@ -1681,18 +1681,18 @@ public class SToolResources extends SToolResourcesSuperClass {
 	 * @param callback The callback to be executed when the layout has been inflated.
 	 * @return An object which can be used to remove the callback again.
 	 */
-	public static STool_InflatedLayout.Unhook hookSystemWideLayout(String pkg, String type, String name, STool_InflatedLayout callback) {
+	public static STool_LayoutInflated.Unhook hookSystemWideLayout(String pkg, String type, String name, STool_LayoutInflated callback) {
 		int id = getSystem().getIdentifier(name, type, pkg);
 		if (id == 0)
 			throw new NotFoundException(pkg + ":" + type + "/" + name);
 		return hookSystemWideLayout(id, callback);
 	}
 
-	private static STool_InflatedLayout.Unhook hookLayoutInternal(String resDir, int id, ResourceNames resNames, STool_InflatedLayout callback) {
+	private static STool_LayoutInflated.Unhook hookLayoutInternal(String resDir, int id, ResourceNames resNames, STool_LayoutInflated callback) {
 		if (id == 0)
 			throw new IllegalArgumentException("id 0 is not an allowed resource identifier");
 
-		HashMap<String, CopyOnWriteSortedSet<STool_InflatedLayout>> inner;
+		HashMap<String, CopyOnWriteSortedSet<STool_LayoutInflated>> inner;
 		synchronized (sLayoutCallbacks) {
 			inner = sLayoutCallbacks.get(id);
 			if (inner == null) {
@@ -1701,7 +1701,7 @@ public class SToolResources extends SToolResourcesSuperClass {
 			}
 		}
 
-		CopyOnWriteSortedSet<STool_InflatedLayout> callbacks;
+		CopyOnWriteSortedSet<STool_LayoutInflated> callbacks;
 		synchronized (inner) {
 			callbacks = inner.get(resDir);
 			if (callbacks == null) {
@@ -1718,15 +1718,15 @@ public class SToolResources extends SToolResourcesSuperClass {
 	}
 
 	/** @hide */
-	public static void unhookLayout(String resDir, int id, STool_InflatedLayout callback) {
-		HashMap<String, CopyOnWriteSortedSet<STool_InflatedLayout>> inner;
+	public static void unhkLayout(String resDir, int id, STool_LayoutInflated callback) {
+		HashMap<String, CopyOnWriteSortedSet<STool_LayoutInflated>> inner;
 		synchronized (sLayoutCallbacks) {
 			inner = sLayoutCallbacks.get(id);
 			if (inner == null)
 				return;
 		}
 
-		CopyOnWriteSortedSet<STool_InflatedLayout> callbacks;
+		CopyOnWriteSortedSet<STool_LayoutInflated> callbacks;
 		synchronized (inner) {
 			callbacks = inner.get(resDir);
 			if (callbacks == null)

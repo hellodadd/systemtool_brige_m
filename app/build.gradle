@@ -27,11 +27,11 @@ android {
     // As they have to be injected before the official SDK classes and must not be part of the
     // final JAR/APK, the best way seems to compile them in a separate project and use some dirty
     // magic to add its output directory to all variants' configuration.
-    def hiddenapi = project(':hiddenstapistubs')
+    def hiddenapi = project(':hiddenapistubs')
     hiddenapi.afterEvaluate {
         hiddenapi.android.compileSdkVersion compileSdkVersion
         hiddenapi.android.buildToolsVersion buildToolsVersion
-        preBuild.dependsOn ':hiddenstapistubs:assembleRelease'
+        preBuild.dependsOn ':hiddenapistubs:assembleRelease'
         hiddenapi.preBuild << {
             def hiddenapiCompiler = hiddenapi.android.libraryVariants[0].javaCompiler
             def hiddenapiDestPath = hiddenapiCompiler.destinationDir.getAbsolutePath()
@@ -87,7 +87,7 @@ task generateDocs(type: Javadoc, dependsOn: 'compileReleaseSources') {
         (101..122).each {
             addBooleanOption 'hide ' + it, true
         }
-        addBooleanOption 'hidePackage sysoperation.res', true
+        addBooleanOption 'hidePackage sysoperation.dummy', true
     }
 }
 
@@ -106,7 +106,7 @@ task generateStubs(type: Javadoc, dependsOn: 'compileReleaseSources') {
         addFileOption 'api', file('doclib/api/current.txt')
         addBooleanOption 'hide 111', true
         addBooleanOption 'hide 113', true
-        addBooleanOption 'hidePackage sysoperation.res', true
+        addBooleanOption 'hidePackage sysoperation.dummy', true
     }
 }
 
@@ -131,7 +131,7 @@ task jarStubsSource(type: Jar) {
 
 task generateAPI(dependsOn: ['generateDocs', 'generateStubs', 'jarStubs', 'jarStubsSource'])
 
-// Make sure that hiddenstapistubs are placed before the Android SDK in app.iml
+// Make sure that hiddenapistubs are placed before the Android SDK in app.iml
 // as there doesn't seem to be any way to configure this in Android Studio.
 task fixIml {
     ext.imlFile = projectDir.absolutePath + '/' + project.name + '.iml'
@@ -148,7 +148,7 @@ task fixIml {
 
         // Check if it has already been fixed
         def orderEntries = moduleComponent.orderEntry
-        if (orderEntries.find { it.@type == 'module' && it.@'module-name' == 'hiddenstapistubs' })
+        if (orderEntries.find { it.@type == 'module' && it.@'module-name' == 'hiddenapistubs' })
             return
 
         // Determine the index of the Android SDK entry
@@ -157,7 +157,7 @@ task fixIml {
 
         // Add the new entry just before it
         moduleComponent.children().add(jdkOrderEntryIndex, new Node(null, 'orderEntry',
-                ['type': 'module', 'module-name': 'hiddenstapistubs', 'exported': '']))
+                ['type': 'module', 'module-name': 'hiddenapistubs', 'exported': '']))
 
         // Write the fixed iml file
         def printer = new XmlNodePrinter(new PrintWriter(new FileWriter(imlFile)))

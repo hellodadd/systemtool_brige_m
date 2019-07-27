@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="afe76ff2-c400-42c1-b25f-e8956e5153be" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/brige.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/hiddenstapistubs.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/hiddensystemtoolapistubs.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/app/ActivityThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/app/LoadedApk.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/pm/PackageParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/AssetManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/CompatibilityInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/Resources.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/TypedArray.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/os/SELinux.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/os/ServiceManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/com/android/internal/os/RuntimeInit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/com/android/internal/os/ZygoteInit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/com/android/internal/util/XmlUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/sysoperation/res/SToolResourcesSuperClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/sysoperation/res/SToolTypedArraySuperClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/build.gradle" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/build.gradle" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/doclib/api/current.txt" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/doclib/api/current.txt" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/AndroidAppHelper.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/AndroidAppHelper.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolMdResources.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResForwarder.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResForwarder.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/DexCreator.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/DexCreator.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkInitPackageResources.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkInitPackageResources.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkLoadPackage.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkLoadPackage.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkZygoteInit.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkZygoteInit.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SELinuxHelper.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SELinuxHelper.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SToolSharedPref.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/STool_MethodHk.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/STool_MethodHk.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/STool_MethodRplmt.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationBridge.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationBridge.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationHelpers.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationHelpers.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationInit.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationInit.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/ISToolUnhk.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/ISToolUnhk.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/SToolCallbk.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_InflatedLayout.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_InitPackageRes.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_PackageLoad.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/package-info.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/package-info.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/services/SToolZygoteServ.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/brige.iml" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/.gitignore" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/build.gradle" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/hiddenstapistubs.iml" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/hiddensystemtoolapistubs.iml" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/app/ActivityThread.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/app/LoadedApk.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/pm/PackageParser.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/AssetManager.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/CompatibilityInfo.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/Resources.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/TypedArray.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/os/SELinux.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/os/ServiceManager.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/com/android/internal/os/RuntimeInit.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/com/android/internal/os/ZygoteInit.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/com/android/internal/util/XmlUtils.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/sysoperation/res/SToolResourcesSuperClass.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/sysoperation/res/SToolTypedArraySuperClass.java" beforeDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/settings.gradle" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/settings.gradle" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="/mnt/one/Sources/systemtool/brige-m/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="brige-m" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="brige-m" type="f1a62948:ProjectNode" />
+                <item name=":app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="brige-m" type="f1a62948:ProjectNode" />
+                <item name=":app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="brige-m" type="f1a62948:ProjectNode" />
+                <item name=":app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/package-info.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+              <folding>
+                <element signature="e#0#116#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1440" />
+    <option name="height" value="809" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+              <item name="outputs" type="462c0819:PsiDirectoryNode" />
+              <item name="apk" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.project.structure.last.selected" value="SDK Location" />
+    <property name="android.project.structure.proportion" value="0.15" />
+    <property name="android.sdk.path" value="/mnt/one/android-sdk-linux" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.do.not.ask.upgrade.gradle.plugin" value="2.2.2" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle./mnt/one/Sources/systemtool/brige-m/app [generateAPI]">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="/mnt/one/Sources/systemtool/brige-m/app [generateAPI]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="/mnt/one/Sources/systemtool/brige-m/app" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="generateAPI" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle./mnt/one/Sources/systemtool/brige-m/app [generateAPI]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="afe76ff2-c400-42c1-b25f-e8956e5153be" name="Default Changelist" comment="" />
+      <created>1564211638910</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1564211638910</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.25428414" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Run" visible="true" weight="0.3291536" />
+      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Debug" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Build" weight="0.2421959" />
+      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Gradle" visible="true" weight="0.32946378" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

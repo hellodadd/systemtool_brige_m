@@ -6,10 +6,10 @@ package com.system.android.sysoperation;
  * <p>Implement this interface in your module's main class in order to be notified when Android is
  * starting up. In {@link ISysOperationHkZygoteInit}, you can modify objects and place hooks that should
  * be applied for every app. Only the Android framework/system classes are available at that point
- * in time. Use {@code null} as class loader for {@link SysOperationHelpers#findAndHkMethod(String, ClassLoader, String, Object...)}
+ * in time. Use {@code null} as class loader for {@link SysOperationHelpers#findAndHookMethod(String, ClassLoader, String, Object...)}
  * and its variants.
  *
- * <p>If you want to hook one/multiple specific apps, use {@link ISysOperationHkLoadPackage} instead.
+ * <p>If you want to hook one/multiple specific apps, use {@link ISysOperationHookLoadPackage} instead.
  */
 public interface ISysOperationHkZygoteInit extends ISysOperationMod {
 	/**
