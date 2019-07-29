@@ -1,6 +1,7 @@
 package com.system.android.sysoperation;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.system.android.sysoperation.callbacks.STool_LoadPackage;
 import com.system.android.sysoperation.callbacks.STool_LoadPackage.LoadPackageParam;
@@ -31,6 +32,7 @@ public interface ISysOperationHkLoadPackage extends ISysOperationMod {
 		}
 		@Override
 		public void handleLoadPackage(LoadPackageParam lpparam) throws Throwable {
+			//Log.e("zwb", " ISysOperationHkLoadPackage handleLoadPackage ");
 			instance.handleLoadPackage(lpparam);
 		}
 	}

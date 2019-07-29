@@ -303,6 +303,16 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		} else {
 			hookAllConstructors(classResKey, new STool_MethodHk() {
 				@Override
+				protected void startGetMethod(MethodHkParam param) throws Throwable {
+					Object key = latestResKey.get();
+					if (key == null) {
+						return;
+					}
+
+					latestResKey.set(null);
+				}
+
+				@Override
 				protected void endGetMethod(MethodHkParam param) throws Throwable {
 					latestResKey.set(param.thisObject);
 				}
@@ -385,6 +395,11 @@ import static com.system.android.sysoperation.SysOperationHelpers.setStaticObjec
 		Object result = param.getResult();
 		if (result == null || result instanceof SToolResources ||
 				Arrays.binarySearch(XRESOURCES_CONFLICTING_PACKAGES, AndroidAppHelper.currentPackageName()) == 0) {
+			return null;
+		}
+
+		if (resDir != null && resDir.contains("tinker")) {
+			Log.e(TAG, " cloneToXResources " + resDir);
 			return null;
 		}
 

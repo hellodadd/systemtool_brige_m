@@ -1,73 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="afe76ff2-c400-42c1-b25f-e8956e5153be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/brige.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/hiddenstapistubs.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/hiddensystemtoolapistubs.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/app/ActivityThread.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/app/LoadedApk.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/pm/PackageParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/AssetManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/CompatibilityInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/Resources.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/content/res/TypedArray.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/os/SELinux.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/android/os/ServiceManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/com/android/internal/os/RuntimeInit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/com/android/internal/os/ZygoteInit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/com/android/internal/util/XmlUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/sysoperation/res/SToolResourcesSuperClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hiddenstapistubs/src/main/java/sysoperation/res/SToolTypedArraySuperClass.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/build.gradle" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/build.gradle" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/doclib/api/current.txt" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/doclib/api/current.txt" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/AndroidAppHelper.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/AndroidAppHelper.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolMdResources.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResForwarder.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResForwarder.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/DexCreator.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/DexCreator.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkInitPackageResources.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkInitPackageResources.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/.idea/workspace.xml" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/.idea/workspace.xml" afterDir="false" />
       <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkLoadPackage.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkLoadPackage.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkZygoteInit.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkZygoteInit.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SELinuxHelper.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SELinuxHelper.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SToolSharedPref.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/STool_MethodHk.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/STool_MethodHk.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/STool_MethodRplmt.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationBridge.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationBridge.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationHelpers.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationHelpers.java" afterDir="false" />
       <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationInit.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/SysOperationInit.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/ISToolUnhk.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/ISToolUnhk.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/SToolCallbk.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_InflatedLayout.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_InitPackageRes.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_PackageLoad.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/package-info.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/package-info.java" afterDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/services/SToolZygoteServ.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/brige.iml" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/.gitignore" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/build.gradle" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/hiddenstapistubs.iml" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/hiddensystemtoolapistubs.iml" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/app/ActivityThread.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/app/LoadedApk.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/pm/PackageParser.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/AssetManager.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/CompatibilityInfo.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/Resources.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/content/res/TypedArray.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/os/SELinux.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/android/os/ServiceManager.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/com/android/internal/os/RuntimeInit.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/com/android/internal/os/ZygoteInit.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/com/android/internal/util/XmlUtils.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/sysoperation/res/SToolResourcesSuperClass.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenstapistubs/src/main/java/sysoperation/res/SToolTypedArraySuperClass.java" beforeDir="false" />
-      <change beforePath="/mnt/one/Sources/systemtool/brige-m/settings.gradle" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/settings.gradle" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_LoadPackage.java" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_LoadPackage.java" afterDir="false" />
+      <change beforePath="/mnt/one/Sources/systemtool/brige-m/hiddenapistubs/hiddenapistubs.iml" beforeDir="false" afterPath="/mnt/one/Sources/systemtool/brige-m/hiddenapistubs/hiddenapistubs.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +58,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/app/package-info.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
@@ -127,10 +70,62 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-963">
+              <caret line="191" column="19" selection-start-line="191" selection-start-column="19" selection-end-line="191" selection-end-column="19" />
+              <folding>
+                <element signature="e#2337#2376#0" expanded="true" />
+                <element signature="e#3439#3589#0" expanded="true" />
+                <element signature="e#3588#3589#0" expanded="true" />
+                <element signature="e#4017#4018#0" expanded="true" />
+                <element signature="e#4065#4066#0" expanded="true" />
+                <element signature="e#5584#5585#0" expanded="true" />
+                <element signature="e#5610#5611#0" expanded="true" />
+                <element signature="e#7685#8287#0" expanded="true" />
+                <element signature="e#8286#8287#0" expanded="true" />
+                <element signature="e#12124#12125#0" expanded="true" />
+                <element signature="e#12168#12169#0" expanded="true" />
+                <element signature="e#55957#55994#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>had</find>
+      <find>clone</find>
+      <find>3333</find>
+      <find>classGTLR</find>
+      <find>hookMethod</find>
+      <find>AdditionalHookInfo</find>
+      <find>cloneToXResources</find>
+      <find>handleLoadPackage</find>
+      <find>SToolResources</find>
+    </findStrings>
+    <dirStrings>
+      <dir>/mnt/one/Sources/systemtool/brige-m/app/build/outputs/apk</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/FunnyToolBridge.java" />
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java" />
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/FunnyToolInit.java" />
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/IFunnyToolHkLoadPackage.java" />
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/callbacks/STool_LoadPackage.java" />
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkLoadPackage.java" />
+        <option value="/mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_LoadPackage.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="65" />
@@ -185,6 +180,46 @@
               <item name="build" type="462c0819:PsiDirectoryNode" />
               <item name="outputs" type="462c0819:PsiDirectoryNode" />
               <item name="apk" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="brige-m" type="b2602c69:ProjectViewProjectNode" />
+              <item name="brige-m" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="android" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -325,14 +360,15 @@
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Run" visible="true" weight="0.3291536" />
-      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="Logcat" weight="0.3291536" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="TODO" />
       <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
       <window_info anchor="bottom" id="Debug" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Build" weight="0.2421959" />
+      <window_info anchor="bottom" id="Build" weight="0.2413793" />
+      <window_info anchor="bottom" id="Find" weight="0.3291536" />
       <window_info anchor="right" id="Device File Explorer" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="right" id="Gradle" visible="true" weight="0.32946378" />
@@ -347,6 +383,156 @@
           <caret line="4" selection-start-line="4" selection-end-line="4" />
           <folding>
             <element signature="e#0#116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/hiddenapistubs/src/main/java/android/app/LoadedApk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="28" />
+          <folding>
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/FunnyToolHelpers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="891" column="25" selection-start-line="891" selection-start-column="25" selection-end-line="891" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/STool_MethodHk.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
+          <folding>
+            <element signature="e#563#564#0" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/DexCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="45" column="90" selection-start-line="45" selection-start-column="90" selection-end-line="45" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/FunnyToolBridge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+          <folding>
+            <element signature="e#9872#9910#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/FunnyToolInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="407" column="22" selection-start-line="407" selection-start-column="22" selection-end-line="407" selection-end-column="22" />
+          <folding>
+            <element signature="e#4500#6235#0" expanded="true" />
+            <element signature="e#6234#6235#0" expanded="true" />
+            <element signature="e#8857#9761#0" expanded="true" />
+            <element signature="e#9760#9761#0" expanded="true" />
+            <element signature="e#9881#10222#0" expanded="true" />
+            <element signature="e#10221#10222#0" expanded="true" />
+            <element signature="e#11804#13035#0" expanded="true" />
+            <element signature="e#13034#13035#0" expanded="true" />
+            <element signature="e#14633#14842#0" expanded="true" />
+            <element signature="e#14841#14842#0" expanded="true" />
+            <element signature="e#15215#15570#0" expanded="true" />
+            <element signature="e#15569#15570#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/callbacks/SToolCallback.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="111" column="19" selection-start-line="111" selection-start-column="19" selection-end-line="111" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/callbacks/STool_InitPackageResources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="54" column="22" selection-start-line="54" selection-start-column="22" selection-end-line="54" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/IFunnyToolHkInitPackageResources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="11" column="81" selection-start-line="11" selection-start-column="81" selection-end-line="11" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/IFunnyToolHkLoadPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/funnytool/callbacks/STool_LoadPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="65" column="61" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
+          <folding>
+            <element signature="e#571#572#0" expanded="true" />
+            <element signature="e#585#586#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/IFunnyToolHkZygoteInit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="13" selection-start-line="13" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/callbacks/STool_LoadPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/com/system/android/sysoperation/ISysOperationHkLoadPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///mnt/one/Sources/systemtool/brige-m/app/src/main/java/android/content/res/SToolResources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-963">
+          <caret line="191" column="19" selection-start-line="191" selection-start-column="19" selection-end-line="191" selection-end-column="19" />
+          <folding>
+            <element signature="e#2337#2376#0" expanded="true" />
+            <element signature="e#3439#3589#0" expanded="true" />
+            <element signature="e#3588#3589#0" expanded="true" />
+            <element signature="e#4017#4018#0" expanded="true" />
+            <element signature="e#4065#4066#0" expanded="true" />
+            <element signature="e#5584#5585#0" expanded="true" />
+            <element signature="e#5610#5611#0" expanded="true" />
+            <element signature="e#7685#8287#0" expanded="true" />
+            <element signature="e#8286#8287#0" expanded="true" />
+            <element signature="e#12124#12125#0" expanded="true" />
+            <element signature="e#12168#12169#0" expanded="true" />
+            <element signature="e#55957#55994#0" expanded="true" />
           </folding>
         </state>
       </provider>
